@@ -1,0 +1,33 @@
+@reference "tailwindcss";
+
+.card {
+  @apply p-0 overflow-hidden flex flex-col gap-0 hover:shadow-lg border-gray-50;
+}
+
+.card_img_wrapper {
+  @apply bg-gray-100 grid;
+}
+
+.card_img_wrapper > * {
+  grid-area: 1/1/2/2;
+}
+
+.card_img {
+  @apply aspect-[1/1] w-full h-full object-cover;
+}
+
+.card_tags {
+  @apply mt-4 ml-4 mb-auto mr-auto flex gap-1;
+}
+
+.card_body {
+  @apply p-4;
+}
+
+.card_title {
+  @apply text-lg mb-1;
+}
+
+.card_info {
+  @apply opacity-50;
+}

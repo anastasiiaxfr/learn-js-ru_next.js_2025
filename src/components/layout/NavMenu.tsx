@@ -11,6 +11,7 @@ import {
 const menu = [
   { url: "/", title: "Home" },
   { url: "/rackets", title: "Rackets" },
+  { url: "/rackets/top", title: "TOP Rackets" },
 ];
 
 function NavMenu() {

@@ -1,15 +1,15 @@
-import RacketsList from "../../components/rackets/RacketsList";
-import RacketsPagination from "../../components/rackets/RacketsPagination";
-import { getRackets } from "@/services/get-rackets";
+import RacketsList from "../../../components/rackets/RacketsList";
+import RacketsPagination from "../../../components/rackets/RacketsPagination";
+import { getTopRackets } from "@/services/get-top-rackets";
 
-const ITEMS_PER_PAGE = 20;
+const ITEMS_PER_PAGE = 8;
 
 export default async function RacketsPage({
   searchParams,
 }: {
   searchParams: Promise<{ page?: string }>;
 }) {
-  const data = await getRackets();
+  const data = await getTopRackets();
 
   if (!data.data.length) {
     return null;
@@ -24,6 +24,7 @@ export default async function RacketsPage({
 
   return (
     <>
+      <h1 className="">TOP rackets</h1>
       <RacketsList items={currentItems} />
       <RacketsPagination currentPage={currentPage} totalPages={totalPages} />
     </>

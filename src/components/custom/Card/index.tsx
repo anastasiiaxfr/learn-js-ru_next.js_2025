@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import s from "./styles.module.css";
 import { Badge } from "@/components/ui/badge";
-import type { Racket } from "./types";
+import type { Racket } from "../../../types/racket";
 
 type Props = {
   data: Racket;

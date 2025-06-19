@@ -1,17 +1,29 @@
-export default function HomePage() {
+import { getTopRackets } from "@/services/get-top-rackets";
+import { getRackets } from "@/services/get-rackets";
+import RacketsList from "../components/rackets/RacketsList";
+
+export default async function HomePage() {
+  const topRackets = await getTopRackets();
+  const rackets = await getRackets();
+
+  if (!topRackets.data.length || !rackets.data.length) {
+    return null;
+  }
+
   return (
     <div>
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor quasi amet
-      molestias iusto distinctio accusantium veritatis sequi? Maxime optio
-      consequatur, animi quia, aliquam vel quisquam corporis perspiciatis
-      sapiente numquam corrupti placeat cum dolorum eveniet eius, nisi deleniti
-      cumque ut accusamus neque culpa quis expedita repellat? Ducimus dolorum
-      est tempora, alias nisi doloremque autem saepe sit quis corporis itaque.
-      Dolore eius incidunt cupiditate dolor itaque, totam sed minima! Ratione
-      aspernatur, modi voluptates rerum vel quisquam ipsum corrupti distinctio
-      quia beatae suscipit eum voluptatibus voluptatem consequatur impedit
-      similique, aut maiores aliquid laudantium asperiores possimus assumenda
-      laborum. Voluptate qui assumenda sit recusandae voluptatem.
+      {topRackets.data.length &&
+        <>
+          <h2>TOP 10 Rackets</h2>
+          <RacketsList items={topRackets.data} count={10} />
+        </>
+      }
+
+      {rackets.data.length &&
+        <>
+          <h2>Newest Rackets</h2>
+          <RacketsList items={rackets.data} count={10} />
+        </>}
     </div>
   );
 }

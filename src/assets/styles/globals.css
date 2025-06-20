@@ -138,11 +138,19 @@
     }
 
     .page {
-        @apply flex-1;
+        @apply flex-1 flex flex-col;
     }
 
     .page>main {
-        @apply py-10;
+        @apply py-10 flex flex-col flex-1;
+    }
+
+    h1 {
+        @apply text-3xl lg:text-4xl font-bold mb-10;
+    }
+
+    h2 {
+        @apply text-2xl lg:text-3xl font-bold mb-10;
     }
 }
 

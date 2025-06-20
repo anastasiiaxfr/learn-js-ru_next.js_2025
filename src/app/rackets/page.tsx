@@ -1,8 +1,8 @@
-import { rackets } from "@/mock";
-import RacketsList from "./RacketsList";
-import RacketsPagination from "./RacketsPagination";
+import RacketsList from "../../components/rackets/RacketsList";
+import RacketsPagination from "../../components/rackets/RacketsPagination";
+import { getRackets } from "@/services/get-rackets";
 
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_PAGE = 20;
 
 export default async function RacketsPage({
   searchParams,
@@ -11,14 +11,18 @@ export default async function RacketsPage({
 }) {
   const params = await searchParams;
   const currentPage = parseInt(params.page || "1", 10);
-  const totalPages = Math.ceil(rackets.length / ITEMS_PER_PAGE);
 
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentItems = rackets.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const { data, isError } = await getRackets(currentPage, ITEMS_PER_PAGE);
+
+  if (isError || !data.length) {
+    return null;
+  }
+
+  const totalPages = Math.ceil(data?.total || 100 / ITEMS_PER_PAGE);
 
   return (
     <>
-      <RacketsList items={currentItems} />
+      <RacketsList items={data} />
       <RacketsPagination currentPage={currentPage} totalPages={totalPages} />
     </>
   );

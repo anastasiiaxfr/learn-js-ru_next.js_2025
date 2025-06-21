@@ -7,7 +7,7 @@ export default async function HomePage() {
   const [
     { data: topRackets, isError: isErrorTopRackets },
     { data: rackets, isError: isErrorAllRackets },
-  ] = await Promise.all([getTopRackets(), getRackets()]);
+  ] = await Promise.all([getTopRackets(), getRackets(1, 10)]);
   if (isErrorTopRackets || isErrorAllRackets) {
     return "someError";
   }

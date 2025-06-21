@@ -1,21 +1,15 @@
-
-import { FC, Suspense } from "react";
 import Card from "@/components/custom/Card";
 import type { Racket } from "@/types/racket";
-import { Loader } from "@/components/custom/Loader";
 
 type Props = {
   items: Racket[];
-  count?: number;
 };
 
-const RacketsList: FC<Props> = ({ items, count = items.length }) => {
+const RacketsList = ({ items}: Props) => {
   return (
     <div className="cards">
-      {items.slice(0, count).map((racket) => (
-        <Suspense fallback={<Loader />} key={racket.id}>
-          <Card data={racket} />
-        </Suspense>
+      {items.map((racket: Racket) => (
+        <Card data={racket} key={racket.id} />
       ))}
     </div>
   );

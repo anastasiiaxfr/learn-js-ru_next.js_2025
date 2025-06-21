@@ -1,32 +1,28 @@
-import RacketsList from "../../../components/rackets/RacketsList";
-import RacketsPagination from "../../../components/rackets/RacketsPagination";
+import RacketsList from "@/components/rackets/RacketsList";
 import { getTopRackets } from "@/services/get-top-rackets";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
-const ITEMS_PER_PAGE = 8;
+export const metadata: Metadata = {
+  title: "Tennis store | Top rackets",
+  description: "tennis rackets",
+};
 
-export default async function RacketsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ page?: string }>;
-}) {
-  const data = await getTopRackets();
+export default async function RacketsPage() {
+  const { isError, data } = await getTopRackets();
 
-  if (!data.data.length) {
-    return null;
+  if (!data) {
+    return notFound();
   }
 
-  const params = await searchParams;
-  const currentPage = parseInt(params.page || "1", 10);
-  const totalPages = Math.ceil(data.data.length / ITEMS_PER_PAGE);
-
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentItems = data.data.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  if (isError) {
+    throw new Error("error");
+  }
 
   return (
     <>
       <h1 className="">TOP rackets</h1>
-      <RacketsList items={currentItems} />
-      <RacketsPagination currentPage={currentPage} totalPages={totalPages} />
+      <RacketsList items={data} />
     </>
   );
 }

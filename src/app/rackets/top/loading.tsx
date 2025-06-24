@@ -1,7 +1,10 @@
 import { FC } from "react";
+import { Loader } from "@/components/custom/Loader";
 
 const Loading: FC = () => {
-  return <div>loading top rackets page ...</div>;
+  return <div>
+    <Loader label="Loading top rackets page ..." />
+  </div>;
 };
 
 export default Loading;

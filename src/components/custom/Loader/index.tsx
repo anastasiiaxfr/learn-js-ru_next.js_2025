@@ -1,9 +1,12 @@
 import { Loader2 } from "lucide-react";
 
-export function Loader() {
+export function Loader({ label = "Loading ..." }) {
   return (
-    <Loader2
-      className={`h-[50px] w-[50] animate-spin text-muted-foreground absolute inset-0 m-auto`}
-    />
+    <div className="absolute inset-0 m-auto flex flex-col justify-center items-center bg-black text-white z-10">
+      <Loader2 size={64}
+        className={`animate-spin text-primary`}
+      />
+      <p>{label}</p>
+    </div>
   );
 }

@@ -3,13 +3,12 @@ import type { Racket } from "@/types/racket";
 
 type Props = {
   items: Racket[];
-  count?: number;
 };
 
-const RacketsList = ({ items, count = items.length }: Props) => {
+const RacketsList = ({ items}: Props) => {
   return (
     <div className="cards">
-      {items.slice(0, count).map((racket: Racket) => (
+      {items.map((racket: Racket) => (
         <Card data={racket} key={racket.id} />
       ))}
     </div>

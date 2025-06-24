@@ -1,8 +1,15 @@
 import RacketsList from "../../components/rackets/RacketsList";
 import RacketsPagination from "../../components/rackets/RacketsPagination";
 import { getRackets } from "@/services/get-rackets";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 const ITEMS_PER_PAGE = 20;
+
+export const metadata: Metadata = {
+  title: "Tennis store | All rackets",
+  description: "tennis rackets",
+};
 
 export default async function RacketsPage({
   searchParams,
@@ -15,7 +22,11 @@ export default async function RacketsPage({
   const { data, isError } = await getRackets(currentPage, ITEMS_PER_PAGE);
 
   if (isError || !data.length) {
-    return null;
+    throw new Error("error");
+  };
+
+  if (!data) {
+    return notFound();
   }
 
   const totalPages = Math.ceil(data?.total || 100 / ITEMS_PER_PAGE);

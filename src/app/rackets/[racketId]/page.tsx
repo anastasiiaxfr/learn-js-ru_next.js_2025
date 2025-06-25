@@ -1,7 +1,5 @@
 import { notFound } from "next/navigation";
 import { getRacketById } from "@/services/get-racket-by-id";
-// import { getRackets } from "@/services/get-rackets";
-// import type { Racket } from "@/types/racket";
 import { Metadata } from "next";
 import { getMetaRacketById } from "@/services/get-meta-racket-by-id";
 
@@ -9,13 +7,6 @@ import { RacketContainer } from "@/components/rackets/RacketContainer";
 
 import { Suspense } from "react";
 import { Loader } from "@/components/custom/Loader";
-// export const generateStaticParams = async () => {
-//   const { data: rackets } = await getRackets();
-
-//   return rackets.map((racket: Racket) => ({
-//     racketId: racket.id.toString(),
-//   }));
-// };
 
 type Props = {
   params: Promise<{ racketId: string }>;

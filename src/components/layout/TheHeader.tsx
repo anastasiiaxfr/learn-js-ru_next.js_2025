@@ -1,5 +1,6 @@
 import Logo from "./Logo";
 import NavMenu from "./NavMenu";
+import AuthBtnGroup from "@/app/(auth)/auth-btn-group";
 
 function Header() {
   return (
@@ -7,6 +8,7 @@ function Header() {
       <div className="container">
         <Logo />
         <NavMenu />
+        <AuthBtnGroup />
       </div>
     </header>
   );

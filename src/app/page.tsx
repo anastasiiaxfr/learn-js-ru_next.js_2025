@@ -2,6 +2,7 @@ import { getTopRackets } from "@/services/get-top-rackets";
 import { getRackets } from "@/services/get-rackets";
 import RacketsList from "../components/rackets/RacketsList";
 import { notFound } from "next/navigation";
+import RacketSlider from "@/components/rackets/RacketSlider";
 
 export default async function HomePage() {
   const [
@@ -19,10 +20,12 @@ export default async function HomePage() {
   return (
     <div>
       {topRackets.length && (
-        <>
+        <div className="mb-10">
           <h2>TOP 10 Rackets</h2>
-          <RacketsList items={topRackets} />
-        </>
+          <div className="px-10">
+            <RacketSlider data={topRackets} />
+          </div>
+        </div>
       )}
 
       {rackets.length && (

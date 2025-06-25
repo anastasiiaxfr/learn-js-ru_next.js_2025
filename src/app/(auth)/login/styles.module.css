@@ -1,0 +1,21 @@
+@reference "tailwindcss";
+
+.form {
+    @apply max-w-[400px] w-full mx-auto;
+}
+
+.form_row {
+    @apply grid w-full items-center gap-3 mb-4;
+}
+
+.form_error {
+    @apply my-3 text-red-500 text-sm;
+}
+
+.btn {
+    @apply px-8 py-6 w-full;
+}
+
+.tabs {
+    @apply flex w-full max-w-sm flex-col gap-6 mx-auto;
+}

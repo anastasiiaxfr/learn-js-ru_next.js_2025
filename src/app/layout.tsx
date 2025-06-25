@@ -2,6 +2,7 @@ import Layout from "@/components/layout";
 import "../assets/styles/globals.css";
 import NextTopLoader from "nextjs-toploader";
 import { Metadata } from "next";
+import App from "@/components/layout/App";
 
 export const metadata: Metadata = {
   title: `🏓 Tennis store`,
@@ -35,8 +36,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <NextTopLoader />
-        <Layout>{children}</Layout>
+        <App>
+          <NextTopLoader />
+          <Layout>{children}</Layout>
+        </App>
       </body>
     </html>
   );

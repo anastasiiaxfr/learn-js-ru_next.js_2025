@@ -1,3 +1,5 @@
+import { getUser } from "@/services/get-user";
+
 import { FC } from "react";
 import RacketPage from "./RacketPage";
 import { notFound } from "next/navigation";
@@ -10,6 +12,8 @@ type Props = {
 export const RacketContainer: FC<Props> = async ({ racketId }) => {
   const { data, isError } = await getRacketById({ id: racketId });
 
+  const { data: user } = await getUser();
+
   if (isError) {
     throw new Error("error");
   }
@@ -18,5 +22,5 @@ export const RacketContainer: FC<Props> = async ({ racketId }) => {
     return notFound();
   }
 
-  return <RacketPage racket={data} />;
+  return <RacketPage racket={data} user={user ?? null} />;
 };

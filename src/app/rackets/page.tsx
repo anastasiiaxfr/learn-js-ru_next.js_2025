@@ -23,7 +23,7 @@ export default async function RacketsPage({
 
   if (isError || !data.length) {
     throw new Error("error");
-  };
+  }
 
   if (!data) {
     return notFound();

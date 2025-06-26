@@ -17,7 +17,7 @@ const menu = [
 function NavMenu() {
   const pathname = usePathname();
   return (
-    <NavigationMenu className="menu">
+    <NavigationMenu className="menu hidden md:flex">
       <NavigationMenuList>
         {menu.map((i, ind) => (
           <NavigationMenuItem key={ind}>

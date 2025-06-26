@@ -5,7 +5,15 @@
 }
 
 .img {
-  @apply aspect-square border border-gray-50 shadow-xl p-10;
+  @apply aspect-square border border-gray-50 shadow-xl p-10 object-contain;
+}
+
+.img_wrap {
+  @apply grid;
+}
+
+.img_wrap > * {
+  grid-area: 1/1/2/2;
 }
 
 .info {

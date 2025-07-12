@@ -33,8 +33,8 @@ export const generateMetadata = async ({
       description: result.data.description,
       images: {
         url: result.data.imageUrl,
-        width: 600,
-        height: 300,
+        width: 1200,
+        height: 630,
         alt: result.data.name,
         type: "image/jpeg",
       },

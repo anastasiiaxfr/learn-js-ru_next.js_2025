@@ -1,9 +1,18 @@
 import { BASE_API_URL } from "@/constants/api";
 
-export const getRackets = async (page: number = 1, limit: number = 100) => {
-  const result = await fetch(
-    `${BASE_API_URL}/products?page=${page}&limit=${limit}`
-  );
+export const getRackets = async (page: number = 1, limit: number = 100, brand?: string | null) => {
+  const query = new URLSearchParams({
+    page: String(page),
+    limit: String(limit),
+  });
+
+  if (brand) {
+    query.set("brand", brand);
+  }
+
+  const result = await fetch(`${BASE_API_URL}/products?${query.toString()}`, {
+    credentials: "include",
+  });
 
   if (result.status === 404) {
     return { isError: false, data: undefined };
@@ -14,6 +23,5 @@ export const getRackets = async (page: number = 1, limit: number = 100) => {
   }
 
   const data = await result.json();
-
   return { isError: false, data };
 };

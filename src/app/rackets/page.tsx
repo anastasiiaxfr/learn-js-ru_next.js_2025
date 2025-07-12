@@ -1,10 +1,10 @@
 import RacketsList from "../../components/rackets/RacketsList";
 import RacketsPagination from "../../components/rackets/RacketsPagination";
 import { getRackets } from "@/services/get-rackets";
-import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { SWRConfig } from "swr";
 
-const ITEMS_PER_PAGE = 20;
+const ITEMS_PER_PAGE = 8;
 
 export const metadata: Metadata = {
   title: "Tennis store | All rackets",
@@ -14,27 +14,36 @@ export const metadata: Metadata = {
 export default async function RacketsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: { page?: string };
 }) {
-  const params = await searchParams;
-  const currentPage = parseInt(params.page || "1", 10);
+  const currentPage = parseInt(searchParams.page || "1", 10);
 
-  const { data, isError } = await getRackets(currentPage, ITEMS_PER_PAGE);
+  const initialData = await getRackets(currentPage, ITEMS_PER_PAGE);
 
-  if (isError || !data.length) {
-    throw new Error("error");
+  const currentPageData = initialData?.data;
+
+  if (!currentPageData || currentPageData.length === 0) {
+    return "no data";
   }
 
-  if (!data) {
-    return notFound();
-  }
+  const isLastPage = currentPageData.length < ITEMS_PER_PAGE;
 
-  const totalPages = Math.ceil(data?.total || 100 / ITEMS_PER_PAGE);
+  const totalPages = isLastPage
+    ? currentPage
+    : currentPage + 1;
+
+  const fallbackKey = `products?page=${currentPage}&limit=${ITEMS_PER_PAGE}`;
 
   return (
-    <>
-      <RacketsList items={data} />
+    <SWRConfig
+      value={{
+        fallback: {
+          [fallbackKey]: initialData,
+        },
+      }}
+    >
+      <RacketsList items={initialData.data} />
       <RacketsPagination currentPage={currentPage} totalPages={totalPages} />
-    </>
+    </SWRConfig>
   );
 }

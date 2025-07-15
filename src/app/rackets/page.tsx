@@ -1,10 +1,12 @@
-import RacketsList from "../../components/rackets/RacketsList";
+import RacketsList from "@/components/rackets/RacketsList";
 import RacketsPagination from "../../components/rackets/RacketsPagination";
 import { getRackets } from "@/services/get-rackets";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { SWRConfig } from "swr";
+import RacketBrands from "@/components/rackets/RacketBrands";
 
-const ITEMS_PER_PAGE = 20;
+const ITEMS_PER_PAGE = 8;
 
 export const metadata: Metadata = {
   title: "Tennis store | All rackets",
@@ -29,12 +31,31 @@ export default async function RacketsPage({
     return notFound();
   }
 
-  const totalPages = Math.ceil(data?.total || 100 / ITEMS_PER_PAGE);
+  const isLastPage = data.length < ITEMS_PER_PAGE;
+  const totalPages = isLastPage ? currentPage : currentPage + 1;
+
+  const { page = "1" } = await searchParams;
+  let pageNumber = 1;
+  if (typeof page === "string") {
+    pageNumber = parseInt(page) || 1;
+  }
 
   return (
-    <>
+    <SWRConfig
+      value={{
+        fallback: {
+          [`products?page=${page}&limit=${ITEMS_PER_PAGE}`]: getRackets(
+            pageNumber,
+            ITEMS_PER_PAGE
+          ),
+        },
+      }}
+    >
+      <div className="mb-10">
+        <RacketBrands />
+      </div>
       <RacketsList items={data} />
       <RacketsPagination currentPage={currentPage} totalPages={totalPages} />
-    </>
+    </SWRConfig>
   );
 }

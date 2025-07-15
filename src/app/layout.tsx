@@ -3,6 +3,7 @@ import "../assets/styles/globals.css";
 import NextTopLoader from "nextjs-toploader";
 import { Metadata } from "next";
 import App from "@/components/layout/App";
+import { Open_Sans } from 'next/font/google';
 
 export const metadata: Metadata = {
   title: `🏓 Tennis store`,
@@ -28,13 +29,19 @@ export const metadata: Metadata = {
   },
 };
 
+const openSans = Open_Sans({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "700"],
+});
+
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={openSans.className}>
       <body>
         <App>
           <NextTopLoader />
